@@ -1,0 +1,103 @@
+================================================
+Functional and Pipeline Simulator for simpleRISC processor
+================================================
+
+Developer's Name: Shivam Mittal / Abhishek Chowdhry
+Developer's Email id: 2015csb1032@iitrpr.ac.in / 2015csb1002@iitrpr.ac.in
+Date: 6th November 2016
+================================================
+
+
+README
+
+Table of contents
+1. Directory Structure
+2. What the software is doing
+3. Known limitations/bugs if any
+4. How to compile
+5. How to use/run.
+
+
+1. Directory Structure:
+------------------------
+CSL211-Project
+  |
+  |- bin
+      |
+      |- run
+  |- doc
+      |
+  |- include
+      |
+      |- common.h
+      |- mySimpleSim.h      
+      |- pipeline.h
+      |- pipelineregisters.h
+  |- src
+      |- data_out.mem (The data_out file generated which contains the memory status)
+      |- main.cpp
+      |- Makefile
+      |- mySimpleSim.cpp
+      |- common.cpp   
+      |- pipeline.cpp
+      |- pipelineregisters.cpp
+  |- test
+      |- fib.mem
+      |- array_add.mem
+      |- out2.hex
+      |- test1.mem 
+      |- testcase.mem              
+
+
+2. What the software is doing:
+-------------------------------
+Implementing function simulator and pipeline simular in c++ language for simpleRISC processor. 
+Simulator takes instruction encoding in MEM file as input (From the test folder). MEM file has the following format:
+
+#First number is address of the instruction, followed by space followed by instruction encoding. For example :
+0x0 0xE3A0200A
+0x4 0xE3A03000
+
+All the instruction in the given in the input MEM file is executed as per the
+functional behavior of the instructions. Each instruction must go through the
+following phases:
+ - Fetch
+ - Decode
+ - Execute
+ - Memory
+ - Writeback
+
+Along with execution of instruction stages, simulator also provide messages
+what it is doing in each stage, additionally writes the data memory in 
+MEM file "data_out.mem" (In src folder) before exiting.
+
+Test cases are already provided in the /test folder.
+
+Note : We are ending the program with a 0xFFFFFFFF instruction (Type of exit instruction)
+
+Credits : Special thanks to Prateek Chajjer for providing the basic mem file for 
+both the programs, although there were minor errors which we corrected.
+
+
+3. Known limitations/bugs if any
+----------------------------------
+Not any specific limitations.
+
+
+4. How to compile
+-------------------
+For building:
+	$cd src
+	$make
+
+For cleaning the project:
+	$cd src
+	$make clean
+
+5. How to use/run
+-------------------
+../bin/mySimpleSim ../test/fib.mem <optional>
+
+optional = 1, for running the pipeline simulator, otherwise put as anything for simple simulator
+
+

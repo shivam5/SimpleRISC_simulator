@@ -1,0 +1,123 @@
+================================================
+Functional Simulator for simpleRISC processor
+================================================
+
+Developer's Name: Shivam Mittal / Abhishek Chowdhry
+Developer's Email id: 2015csb1032@iitrpr.ac.in / 2015csb1002@iitrpr.ac.in
+Date: 1st October 2016
+================================================
+
+
+README
+
+Table of contents
+1. Directory Structure
+2. What the software is doing
+3. Known limitations/bugs if any
+4. How to compile
+5. How to use/run.
+6. How output looks like, if there is any.
+
+
+1. Directory Structure:
+------------------------
+CSL211-Project
+  |
+  |- bin
+      |
+      |- mySimpleSim
+  |- doc
+      |
+  |- include
+      |
+      |- mySimpleSim.h
+  |- src
+      |- data_out.mem (The data_out file generated which contains the memory status)
+      |- main.c
+      |- Makefile
+      |- mySimpleSim.c
+  |- test
+      |- fib.mem
+      |- array_add.mem
+
+
+2. What the software is doing:
+-------------------------------
+Implementing function simulator in c language for simpleRISC processor. 
+Simulator takes instruction encoding in MEM file as input (From the test folder). MEM file has the following format:
+
+#First number is address of the instruction, followed by space followed by instruction encoding. For example :
+0x0 0xE3A0200A
+0x4 0xE3A03000
+
+All the instruction in the given in the input MEM file is executed as per the
+functional behavior of the instructions. Each instruction must go through the
+following phases:
+ - Fetch
+ - Decode
+ - Execute
+ - Memory
+ - Writeback
+
+Along with execution of instruction stages, simulator also provide messages
+what it is doing in each stage, additionally writes the data memory in 
+MEM file "data_out.mem" (In src folder) before exiting.
+
+Two test cases are already provided in the /test folder : 
+ - Fibonacci Program
+ - Sum of the array of N-1 elements. Initialize an array in first loop with each
+   element equal to its index. In second loop find the sum of this array, and
+store the result at Arr[N].
+
+Note : We are ending the program with a 0xFFFFFFFF instruction (Type of exit instruction)
+
+Credits : Special thanks to Prateek Chajjer for providing the basic mem file for 
+both the programs, although there were minor errors which we corrected.
+
+
+3. Known limitations/bugs if any
+----------------------------------
+Not any specific limitations.
+
+
+4. How to compile
+-------------------
+For building:
+	$cd src
+	$make
+
+For cleaning the project:
+	$cd src
+	$make clean
+
+5. How to use/run
+-------------------
+a. To run the fibonacci test case, make changes in ../test/fib.mem if any and execute the command
+../bin/mySimpleSim ../test/fib.mem
+
+b. To run the array sum test case, make changes in ../test/array_add.mem if any and execute the command
+../bin/mySimpleSim ../test/array_add.mem
+
+
+6. How output looks like
+-------------------------
+The memory character array is ouputted to a file data_out.mem.
+
+For each instruction, the output is of the format :
+Instruction Fetch Unit
+PC=PC+4 <Or PC= BranchPC>
+Executing Instruction : <Inst encode>     from address : <address>
+DECODE UNIT
+Immediate is: <>, Branch Target is: <>, Operand1 = <>, Operand2= <>
+EXECUTE UNIT 
+AluResult: <>
+MEMORY UNIT
+// If anything is load/stored, it is displayed
+WRITEBACK UNIT
+ALU result (<>) written into rd (<>th register)
+The state of registers after execution of the above instruction is:
+ R0=<> 	 R1=<> 	 R2=<> 	 R3=<> 
+ R4=<> 	 R5=<> 	 R6=<> 	 R7=<> 
+ R8=<> 	 R9=<> 	 R10=<> 	 R11=<> 
+ R12=<> 	 R13=<> 	 R14=<> 	 R15=<>
+
